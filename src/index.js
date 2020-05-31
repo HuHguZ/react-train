@@ -24,12 +24,20 @@ const Test2 = ({ match }) => {
             Test2 component page
         </div>
         <Link to="/">Go to main</Link>
-        {[...params].map(([key, value], index) => <div key={index}>
-            <div>
-                {key}={value}
-            </div>
-            <br />
-        </div>)}
+        {[...params].map(([key, value], index) => {
+            if (key === 'json') {
+                try {
+                    console.log(JSON.parse(value));
+                } catch {}
+            }
+
+            return <div key={index}>
+                <div>
+                    {key}={value}
+                </div>
+                <br />
+            </div>;
+        })}
     </div>;
 };
 

@@ -5,8 +5,10 @@ import { Link, Redirect } from 'react-router-dom';
 
 const App = () => {
     const [clicked, setClicked] = useState(false);
+    const [json, setJson] = useState("");
 
     return <div>
+        <input type="text" onChange={e => setJson(e.target.value)} value={json} /><br />
         <Link to="/">Main</Link><br />
         <Link to="/test">Test 1</Link><br />
         <div style={{
@@ -14,7 +16,7 @@ const App = () => {
             textDecoration: 'none',
             color: 'black'
         }}>
-            <Link to="/test2?test=ahdsk&param=adsd&json=3234">
+            <Link to={`/test2?test=ahdsk&param=adsd&json=${json}`}>
                 Test 2           
             </Link>
         </div>
