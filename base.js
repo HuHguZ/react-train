@@ -6,8 +6,10 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 
-const getPlugins = () => {
-    const plugins = [
+module.exports = {
+    context: path.resolve(__dirname, 'src'),
+    entry: ['@babel/polyfill', './index.js'],
+    plugins: [
         new HTMLWebpackPlugin({
             template: 'index.html',
             minify: {
@@ -15,17 +17,7 @@ const getPlugins = () => {
             }
         }),
         new CleanWebpackPlugin(),
-    ]; 
-    if (isProd) {
-        plugins.push(new BundleAnalyzerPlugin());
-    }
-    return plugins;
-};
-
-module.exports = {
-    context: path.resolve(__dirname, 'src'),
-    entry: ['@babel/polyfill', './index.js'],
-    plugins: getPlugins(),
+    ],
     optimization: {
         splitChunks: {
             chunks: 'all'
