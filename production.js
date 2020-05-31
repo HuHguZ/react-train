@@ -8,7 +8,5 @@ module.exports = merge(base, {
         filename: '[name].[hash].js',
         path: path.resolve(__dirname, 'build'),
         hashFunction: 'sha256',
-        library: 'MyLibrary',
-        libraryTarget: 'window'
     }
 });

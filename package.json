@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:watch": "webpack --mode development --watch",
+    "build:watch": "webpack --mode development --watch --config ./development.js",
     "build:development": "cross-env NODE_ENV=development webpack --config ./development.js",
     "build:production": "cross-env NODE_ENV=production webpack --config ./production.js",
     "start:electron:development": "electron electron-development-main.js",
