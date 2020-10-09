@@ -1,19 +1,9 @@
 const electron = require('electron');
-const {
-    app,
-    BrowserWindow,
-    ipcMain,
-    Menu,
-    Tray,
-    dialog,
-    shell,
-    nativeImage
-} = electron;
+const { app, BrowserWindow, ipcMain, Menu, Tray, dialog, shell, nativeImage } = electron;
 
 app.allowRendererProcessReuse = true;
 
 const path = require('path');
-const fs = require('fs');
 
 // const appIcon = path.join(__dirname, 'logo.png');
 
@@ -22,6 +12,7 @@ let mainWindow;
 function createMainWindow() {
     const width = 1280;
     const height = 720;
+
     mainWindow = new BrowserWindow({
         width,
         height,
@@ -35,39 +26,41 @@ function createMainWindow() {
             zoomFactor: 1,
             devTools: !false,
             // textAreasAreResizable: false,
-            nodeIntegration: true
-        }
+            nodeIntegration: true,
+            enableRemoteModule: true,
+        },
     });
-    mainWindow.once(`ready-to-show`, () => {
+    mainWindow.once('ready-to-show', () => {
         mainWindow.show();
         //mainWindow.maximize();
     });
-    app.on("second-instance", (event, commandLine, workingDirectory) => {
+    app.on('second-instance', (event, commandLine, workingDirectory) => {
         if (mainWindow) {
             if (mainWindow.isMinimized()) {
                 mainWindow.restore();
             }
+
             mainWindow.focus();
         }
     });
     mainWindow.loadURL('http://localhost:3000');
     mainWindow.webContents.openDevTools();
-    mainWindow.on("closed", function() {
+    mainWindow.on('closed', function () {
         mainWindow = null;
     });
 }
 
-app.on("ready", async () => {
+app.on('ready', () => {
     createMainWindow();
 });
 
-app.on("window-all-closed", function() {
-    if (process.platform !== "darwin") {
+app.on('window-all-closed', function () {
+    if (process.platform !== 'darwin') {
         app.quit();
     }
 });
 
-app.on("activate", function() {
+app.on('activate', function () {
     if (mainWindow === null) {
         createMainWindow();
     }

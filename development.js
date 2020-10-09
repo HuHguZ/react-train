@@ -7,10 +7,10 @@ module.exports = merge(base, {
     mode: 'development',
     devServer: {
         port: 3000,
-        hot: true
+        hot: true,
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, 'build')
-    }
+        path: path.resolve(__dirname, 'build'),
+    },
 });

@@ -1,32 +1,70 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { getThemeVariables } = require('antd/dist/theme');
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
-    entry: ['@babel/polyfill', './index.js'],
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
+    },
+    entry: ['@babel/polyfill', './index.tsx'],
     plugins: [
         new HTMLWebpackPlugin({
             template: 'index.html',
             minify: {
-                collapseWhitespace: isProd
-            }
+                collapseWhitespace: isProd,
+            },
         }),
         new CleanWebpackPlugin(),
     ],
     optimization: {
         splitChunks: {
-            chunks: 'all'
-        }
+            chunks: 'all',
+        },
     },
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.s[ac]ss$/i,
+                use: [
+                    'style-loader',
+                    'css-modules-typescript-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: isProd ? '[hash:base64:5]' : '[path][name]__[local]--[hash:base64:5]',
+                            },
+                        },
+                    },
+                    'sass-loader',
+                ],
+            },
+            {
+                test: /antd.+?\.less$/i,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'postcss-loader', //for css compression
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            lessOptions: {
+                                modifyVars: getThemeVariables({
+                                    dark: true,
+                                }),
+                                javascriptEnabled: true,
+                            },
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.tsx$/i,
                 exclude: /node_modules/,
                 use: [
                     {
@@ -42,17 +80,15 @@ module.exports = {
                                         },
                                     },
                                 ],
-                                '@babel/preset-react'    
+                                '@babel/preset-react',
+                                '@babel/preset-typescript',
                             ],
-                            plugins: [
-                                '@babel/plugin-transform-runtime',
-                                '@effector/babel-plugin-react'
-                            ]
-                        }
-                    }
-                ]
-            }
-        ]
+                            plugins: ['@babel/plugin-transform-runtime', '@effector/babel-plugin-react'],
+                        },
+                    },
+                ],
+            },
+        ],
     },
-    target: 'electron-renderer'
+    target: 'electron-renderer',
 };
