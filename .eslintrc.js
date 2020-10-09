@@ -18,7 +18,7 @@ module.exports = {
         'Atomics': 'readonly',
         'SharedArrayBuffer': 'readonly',
     },
-    'extends': ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', 'prettier', 'prettier/@typescript-eslint', 'prettier/flowtype', 'prettier/react'],
+    'extends': ['airbnb', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', 'prettier', 'prettier/@typescript-eslint', 'prettier/flowtype', 'prettier/react'],
     'plugins': ['@typescript-eslint', 'jsx', 'react', 'prettier'],
     'rules': {
         'arrow-spacing': 'error',
@@ -38,7 +38,9 @@ module.exports = {
         'eqeqeq': ['error', 'always', { 'null': 'ignore' }],
         'func-call-spacing': ['error', 'never'],
         'generator-star-spacing': ['error', { 'before': false, 'after': true }],
+        'no-use-before-define': 'off',
         'react/jsx-closing-bracket-location': ['error', 'line-aligned'],
+        'react/jsx-filename-extension': [1, { extensions: ['.js', '.tsx'] }],
         'jsx/uses-factory': ['error', { 'pragma': 'React' }],
         'jsx/factory-in-scope': ['error', { 'pragma': 'React' }],
         'jsx/mark-used-vars': 'error',
@@ -61,7 +63,7 @@ module.exports = {
         'no-self-compare': 'error',
         'no-unmodified-loop-condition': 'error',
         'no-unused-expressions': 'error',
-        'no-unused-vars': ['error', { 'varsIgnorePattern': 'R' }],
+        'no-unused-vars': ['error', { 'varsIgnorePattern': 'React' }],
         'no-useless-concat': 'error',
         'padding-line-between-statements': [
             'error',
