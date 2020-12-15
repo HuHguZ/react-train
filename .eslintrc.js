@@ -18,8 +18,8 @@ module.exports = {
         'Atomics': 'readonly',
         'SharedArrayBuffer': 'readonly',
     },
-    'extends': ['airbnb', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', 'prettier', 'prettier/@typescript-eslint', 'prettier/flowtype', 'prettier/react'],
-    'plugins': ['@typescript-eslint', 'jsx', 'react', 'prettier'],
+    'extends': ['airbnb', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', 'prettier', 'prettier/@typescript-eslint', 'prettier/flowtype', 'prettier/react', 'plugin:import/errors', 'plugin:import/warnings', 'plugin:import/typescript'],
+    'plugins': ['@typescript-eslint', 'jsx', 'react', 'prettier', 'import'],
     'rules': {
         'arrow-spacing': 'error',
         'block-spacing': 'error',
@@ -82,5 +82,7 @@ module.exports = {
         'import/extensions': 0,
         '@typescript-eslint/explicit-module-boundary-types': 0,
         '@typescript-eslint/no-empty-function': 0,
+        'import/no-unresolved': 'off',
+        'import/order': 'error',
     },
 };
